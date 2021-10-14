@@ -13,6 +13,7 @@ abstract class RestorentListRepository {
 class UserResListRepository extends RestorentListRepository {
   ApiBaseHelper _helper = ApiBaseHelper();
   List<SingleRestorent>? restourent_lists = [];
+
   @override
   Future<Result> restourentList() async {
     String responseString = await (_helper.get(
