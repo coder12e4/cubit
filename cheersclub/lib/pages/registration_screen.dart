@@ -27,6 +27,8 @@ class _Registration_screenState extends State<Registration_screen> {
   bool value = false;
   bool value_bussiness = false;
   int? typeUser = 0;
+  bool _isObscure = true;
+  bool _isObscure1 = true;
 
   GlobalKey<ScaffoldState> _key = GlobalKey();
   late RegisterCubit registerCubit;
@@ -522,8 +524,19 @@ class _Registration_screenState extends State<Registration_screen> {
                 margin: EdgeInsets.only(left: 30, right: 30, top: 20),
                 child: TextField(
                   controller: Password_Controller,
+                  obscureText: _isObscure,
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                        icon: Icon(
+                          _isObscure ? Icons.visibility : Icons.visibility_off,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _isObscure = !_isObscure;
+                          });
+                        }),
                     border: InputBorder.none,
                     hintText: 'Password',
                     hintStyle: TextStyle(color: Colors.white, fontSize: 14),
@@ -546,8 +559,19 @@ class _Registration_screenState extends State<Registration_screen> {
                 margin: EdgeInsets.only(left: 30, right: 30, top: 20),
                 child: TextField(
                   controller: confirm_password_Controller,
+                  obscureText: _isObscure1,
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                        icon: Icon(
+                          _isObscure1 ? Icons.visibility : Icons.visibility_off,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _isObscure1 = !_isObscure1;
+                          });
+                        }),
                     border: InputBorder.none,
                     hintText: 'Confirm password',
                     hintStyle: TextStyle(color: Colors.white, fontSize: 14),

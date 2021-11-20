@@ -18,3 +18,15 @@ class RestourentFail extends RestourentsState {
   final String erroe;
   RestourentFail(this.erroe);
 }
+
+class RestourentsSearchloading extends RestourentsState {}
+
+class RestourentsSearchSucess extends RestourentsState {
+  final List<SingleRestorent> RestourentList;
+  RestourentsSearchSucess(this.RestourentList);
+}
+
+class RestourentsSearcfail extends RestourentsState {
+  final String erroe;
+  RestourentsSearcfail(this.erroe);
+}

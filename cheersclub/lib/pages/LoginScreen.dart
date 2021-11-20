@@ -1,11 +1,11 @@
 import 'package:cheersclub/Utils/utils.dart';
 import 'package:cheersclub/cubit/auth/login/login_cubit.dart';
 import 'package:cheersclub/cubit/repository/LoginRepository.dart';
-import 'package:cheersclub/pages/dashbord.dart';
+import 'package:cheersclub/pages/Home.dart';
 import 'package:cheersclub/pages/registration_screen.dart';
-import 'package:cheersclub/pages/settings.dart';
 import 'package:cheersclub/widgets/CheersAlert.dart';
 import 'package:cheersclub/widgets/cheersclub_text.dart';
+import 'package:cheersclub/widgets/drowers/drowers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -14,6 +14,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:page_transition/page_transition.dart';
+
+import 'forgetPassword.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -26,8 +28,9 @@ class _LoginScreenState extends State<LoginScreen> {
   var Password_Controller = TextEditingController();
   String? _password = "";
   String? _username = "";
+  bool _isObscure = true;
   bool value = false;
-  GlobalKey<ScaffoldState> _key = GlobalKey();
+  GlobalKey<ScaffoldState>? _key = GlobalKey();
   late LoginCubit loginCubit;
   @override
   void initState() {
@@ -47,7 +50,8 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      endDrawer: Container(
+      /*
+      Container(
         // height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width - 40,
         decoration: BoxDecoration(
@@ -290,7 +294,10 @@ class _LoginScreenState extends State<LoginScreen> {
             ],
           ),
         ),
-      ),
+      )
+      */
+      key: _key,
+      endDrawer: drowerBeforlogin(),
       resizeToAvoidBottomInset: false,
       body: BlocProvider(
           create: (context) => loginCubit,
@@ -304,7 +311,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   PageTransition(
                       duration: Duration(milliseconds: 1000),
                       type: PageTransitionType.rightToLeft,
-                      child: dash_bord(),
+                      child: Home(),
                       inheritTheme: true,
                       ctx: context),
                 );
@@ -315,7 +322,7 @@ class _LoginScreenState extends State<LoginScreen> {
             },
             child:
                 BlocBuilder<LoginCubit, LoginState>(builder: (context, state) {
-              return Form(key: _key, child: loginform());
+              return loginform();
             }),
           )),
     );
@@ -329,7 +336,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: SingleChildScrollView(
         child: Container(
           width: MediaQuery.of(context).size.width,
-//          height: MediaQuery.of(context).size.height,
+          height: MediaQuery.of(context).size.height,
           color: HexColor("1A1B1D"),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -360,7 +367,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              _key.currentState!.openEndDrawer();
+                              _key!.currentState!.openEndDrawer();
                               //Scaffold.of(context).openDrawer();
                             },
                             child: Container(
@@ -428,6 +435,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   onChanged: (val) {
                     _username = val;
                   },
+                  style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: 'E-mail',
@@ -451,19 +459,31 @@ class _LoginScreenState extends State<LoginScreen> {
                 margin: EdgeInsets.only(left: 30, right: 30, top: 20),
                 child: TextField(
                   controller: Password_Controller,
+                  obscureText: _isObscure,
                   onChanged: (VAL) {
                     setState(() {
                       _password = VAL;
                     });
                   },
+                  style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                        icon: Icon(
+                          _isObscure ? Icons.visibility : Icons.visibility_off,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _isObscure = !_isObscure;
+                          });
+                        }),
                     border: InputBorder.none,
                     hintText: 'Password',
                     hintStyle: TextStyle(color: Colors.white, fontSize: 14),
                     filled: true,
                     fillColor: HexColor("28292C"),
                     contentPadding: const EdgeInsets.only(
-                        left: 14.0, bottom: 6.0, top: 8.0),
+                        left: 14.0, bottom: 0.0, top: 8.0),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: HexColor("28292C")),
                       borderRadius: BorderRadius.circular(0.0),
@@ -528,25 +548,38 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              Container(
-                height: 50,
-                child: Row(
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width - 60,
-                      height: 50,
-                      //color: HexColor("FEC753"),
-                      margin: EdgeInsets.only(left: 30, top: 20),
-                      child: Center(
-                        child: const CheersClubText(
-                          text: "Forgot Password",
-                          fontColor: Colors.amber,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    PageTransition(
+                        duration: Duration(milliseconds: 1000),
+                        type: PageTransitionType.rightToLeft,
+                        child: forgetPassword(),
+                        inheritTheme: true,
+                        ctx: context),
+                  );
+                },
+                child: Container(
+                  height: 50,
+                  child: Row(
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width - 60,
+                        height: 50,
+                        //color: HexColor("FEC753"),
+                        margin: EdgeInsets.only(left: 30, top: 20),
+                        child: Center(
+                          child: const CheersClubText(
+                            text: "Forgot Password",
+                            fontColor: Colors.amber,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14,
+                          ),
                         ),
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
               ),
               Container(

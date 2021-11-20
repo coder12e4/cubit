@@ -26,6 +26,23 @@ class RestourentsCubit extends Cubit<RestourentsState> {
       emit(RestourentFail(result.failure));
     }
   }
+
+  Future<void> loadrestourentFilter(String f) async {
+    emit(RestourentsSearchloading());
+    Result? result = await restorentListRepository.restourentListFilter(f);
+
+    if (result.isSuccess) {
+      dynamic resultData = result.success;
+
+      List<SingleRestorent> Listdata = await ordersList(
+        resultData,
+      );
+
+      emit(RestourentsSearchSucess(Listdata));
+    } else {
+      emit(RestourentsSearcfail(result.failure));
+    }
+  }
 }
 
 List<SingleRestorent> ordersList(List data) {

@@ -1,47 +1,66 @@
 class User {
-  User({
-    this.id,
-    this.name,
-    this.login_count,
-    this.email,
-    this.fcm_token,
-    this.updated_at,
-    this.profile_photo_url,
-    this.followers,
-  });
-  String? id;
+  int? id;
   String? name;
   String? email;
-
-  String? login_count;
-  String? fcm_token;
-  String? updated_at;
-  String? profile_photo_url;
+  int? phone;
+  String? contactPerson;
+  int? isCompany;
+  String? address;
+  String? city;
+  String? zip;
+  String? country;
+  String? profilePhotoUrl;
   int? followers;
   int? followings;
 
-  factory User.fromJson(Map<String, dynamic> json) => User(
-        id: json["id"],
-        name: json["name"],
-        login_count: json["address"],
-        email: json["email"],
-        fcm_token: json["phone"],
-        updated_at: json["password"],
-        profile_photo_url: json["businessName"],
-        followers: json["pincode"],
-      );
+  User(
+      {this.id,
+      this.name,
+      this.email,
+      this.phone,
+      this.contactPerson,
+      this.isCompany,
+      this.address,
+      this.city,
+      this.zip,
+      this.country,
+      this.profilePhotoUrl,
+      this.followers,
+      this.followings});
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "login_count": login_count,
-        "email": email,
-        "fcm_token": fcm_token,
-        "updated_at": updated_at,
-        "profile_photo_url": profile_photo_url,
-        "followers": followers,
-        "followings": followings,
-      };
+  User.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    email = json['email'];
+    phone = json['phone'];
+    contactPerson = json['contact_person'];
+    isCompany = json['is_company'];
+    address = json['address'];
+    city = json['city'];
+    zip = json['zip'];
+    country = json['country'];
+    profilePhotoUrl = json['profile_photo_url'];
+    followers = json['followers'];
+    followings = json['followings'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['email'] = this.email;
+    data['phone'] = this.phone;
+    data['contact_person'] = this.contactPerson;
+    data['is_company'] = this.isCompany;
+    data['address'] = this.address;
+    data['city'] = this.city;
+    data['zip'] = this.zip;
+    data['country'] = this.country;
+    data['profile_photo_url'] = this.profilePhotoUrl;
+    data['followers'] = this.followers;
+    data['followings'] = this.followings;
+    return data;
+  }
 }
 
 class UserSession {

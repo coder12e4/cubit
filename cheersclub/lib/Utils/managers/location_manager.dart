@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:cheersclub/pages/Home.dart';
+import 'package:flutter_geocoder/geocoder.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 //import 'package:location/location.dart';
@@ -38,7 +40,7 @@ class LocationManager {
     _locationData = await location.getLocation();
     return LatLng(_locationData.latitude!, _locationData.longitude!);
   }
-/*
+
   Future<LocationDetails?> getAddressDetails(LatLng latlong) async {
     final coordinates = new Coordinates(latlong.latitude, latlong.longitude);
     var results =
@@ -47,7 +49,7 @@ class LocationManager {
     LocationDetails locationDetails = LocationDetails(
         coordinates.latitude,
         coordinates.longitude,
-        "Kerala",
+        first.locality,
         first.subAdminArea,
         first.addressLine,
         first.featureName,
@@ -55,7 +57,6 @@ class LocationManager {
     return locationDetails;
     // return null;
   }
-
 
   Future<LocationDetails?> getCurrentAddressDetails() async {
     LatLng? latlong = await (getCurrentLocation());
@@ -74,5 +75,4 @@ class LocationManager {
     return locationDetails;
     // return null;
   }
-*/
 }

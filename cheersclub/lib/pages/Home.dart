@@ -1,7 +1,9 @@
 import 'dart:ui';
-import 'package:flutter/material.dart';
+
+import 'package:cheersclub/Utils/managers/location_manager.dart';
 import 'package:cheersclub/pages/Restourents_list.dart';
 import 'package:cheersclub/widgets/cheersclub_text.dart';
+import 'package:cheersclub/widgets/drowers/drowers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -9,6 +11,26 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:page_transition/page_transition.dart';
+
+class LocationDetails {
+  final double? lat;
+  final double? long;
+  final String? state;
+  final String? district;
+  final String? address;
+  final String? street;
+  final String? pin;
+
+  const LocationDetails(
+    this.lat,
+    this.long,
+    this.state,
+    this.district,
+    this.address,
+    this.street,
+    this.pin,
+  );
+}
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -18,238 +40,31 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  GlobalKey<ScaffoldState> _key = GlobalKey();
+  String? _selectedLocation = "";
+
+  void getCurrentAddress() async {
+    LocationDetails? locationDetails =
+        await LocationManager.instance.getCurrentAddressDetails();
+    setState(() {
+      _selectedLocation = locationDetails!.lat.toString();
+
+      print(_selectedLocation);
+    });
+  }
+
+  @override
+  void initState() {
+    getCurrentAddress();
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    GlobalKey<ScaffoldState> _key = GlobalKey();
-
     return Scaffold(
       key: _key,
-      endDrawer: Container(
-        decoration: BoxDecoration(
-            color: HexColor("1A1B1D"),
-            borderRadius: BorderRadius.only(topLeft: Radius.circular(30))),
-        //  height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width - 30,
-        child: Expanded(
-          child: ListView(
-            children: [
-              Container(
-                height: 120,
-                child: Container(
-                  color: HexColor("131313"),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(left: 13, top: 25),
-                        padding: EdgeInsets.all(5),
-                        child: Image.asset(
-                          "assets/images/logo.png",
-                          fit: BoxFit.fitHeight,
-                          height: 45,
-                          //width: 220,
-                        ),
-                      ),
-                      Expanded(child: SizedBox()),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                            child: Container(
-                              padding: EdgeInsets.only(left: 6),
-                              height: 24,
-                              width: 24,
-                              decoration: BoxDecoration(
-                                  color: Colors.black,
-                                  borderRadius: BorderRadius.circular(24),
-                                  border: Border.all(
-                                      color: Colors.amber, width: 2)),
-                              margin: EdgeInsets.only(right: 20, top: 40),
-                              child: Center(
-                                child: Icon(
-                                  Icons.arrow_back_ios,
-                                  color: Colors.amber,
-                                  size: 12,
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 40,
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 10, bottom: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 30,
-                    ),
-                    CheersClubText(
-                      text: "HOME",
-                      fontColor: Colors.white,
-                      fontSize: 18,
-                    )
-                  ],
-                ),
-              ),
-              Container(
-                height: 70,
-                child: Row(
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width - 100,
-                      height: 70,
-                      color: HexColor("FEC753"),
-                      margin: EdgeInsets.only(
-                          left: 30, top: 15, bottom: 15, right: 30),
-                      child: Center(
-                        child: const CheersClubText(
-                          text: "MY DASHBORD",
-                          fontColor: Colors.black,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 10, bottom: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 30,
-                    ),
-                    CheersClubText(
-                      text: "FIND MY FRIENDS",
-                      fontColor: Colors.white,
-                      fontSize: 18,
-                    )
-                  ],
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 10, bottom: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 30,
-                    ),
-                    CheersClubText(
-                      text: "PLACE AN ORDER",
-                      fontColor: Colors.white,
-                      fontSize: 18,
-                    )
-                  ],
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 10, bottom: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 30,
-                    ),
-                    CheersClubText(
-                      text: "TERMS AND CONDITIONS",
-                      fontColor: Colors.white,
-                      fontSize: 18,
-                    )
-                  ],
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 10, bottom: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 30,
-                    ),
-                    CheersClubText(
-                      text: "PRIVACY STATEMENTS",
-                      fontColor: Colors.white,
-                      fontSize: 18,
-                    )
-                  ],
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 10, bottom: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 30,
-                    ),
-                    CheersClubText(
-                      text: "SETTINGS",
-                      fontColor: Colors.white,
-                      fontSize: 18,
-                    )
-                  ],
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 10, bottom: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 30,
-                    ),
-                    CheersClubText(
-                      text: "FAQ",
-                      fontColor: Colors.white,
-                      fontSize: 18,
-                    )
-                  ],
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 10, bottom: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 30,
-                    ),
-                    CheersClubText(
-                      text: "CONATACT US",
-                      fontColor: Colors.white,
-                      fontSize: 18,
-                    )
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      endDrawer: drowerAfterlogin(),
       body: Container(
         //padding: EdgeInsets.only(top: 100),
         decoration: const BoxDecoration(
