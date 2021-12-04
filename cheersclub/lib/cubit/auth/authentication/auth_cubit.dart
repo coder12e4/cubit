@@ -9,6 +9,7 @@ part 'auth_state.dart';
 class AuthenticationCubit extends Cubit<AuthenticationState> {
   AuthenticationCubit(AuthenticationState state, this.authRepository)
       : super(AuthenticationIntial());
+
   final AuthenticationRepository authRepository;
 
   Future<void> getAuthenticationState() async {

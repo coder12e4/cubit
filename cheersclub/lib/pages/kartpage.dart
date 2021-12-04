@@ -940,6 +940,7 @@ class _contactsState extends State<contacts> {
   Widget _body(bool _permissionDenied) {
     if (_permissionDenied) return Center(child: Text('Permission denied'));
     if (_contacts == null) return Center(child: CircularProgressIndicator());
+
     return Container(
         height: 46,
         margin: EdgeInsets.only(left: 20, top: 10, bottom: 10, right: 20),

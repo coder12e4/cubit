@@ -334,6 +334,7 @@ class _PlaceOrderState extends State<PlaceOrder> {
                         // style: VFuelStyles.formTextStyle(),
                         onChanged: (value) {
                           selecteddrink = value;
+                          //api call
                           placeOrderCubit.loadProducts(
                               restId, "${selecteddrink!.id}");
                         },
@@ -470,7 +471,6 @@ class _PlaceOrderState extends State<PlaceOrder> {
                                       .removeWhere((val) => val == index);
                                 });
                               }
-
                             },
                             child: Container(
                               height:
@@ -557,9 +557,6 @@ class _PlaceOrderState extends State<PlaceOrder> {
                                                   fontSize: 14,
                                                 ),
                                               ),
-
-
-
                                               Checkbox(
                                                 activeColor: HexColor("FEC753"),
                                                 side: BorderSide(
