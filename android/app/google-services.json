@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "278729630713",
+    "project_id": "cubit-83baf",
+    "storage_bucket": "cubit-83baf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:278729630713:android:5ce8bdd681251224441328",
+        "android_client_info": {
+          "package_name": "com.coderacademy.cubit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "278729630713-rim15rt8vp733erg417a2870n6abcf0i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWFBQGq2MNNIEtfYLIBf57ZvF9z1suuQk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "278729630713-rim15rt8vp733erg417a2870n6abcf0i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
