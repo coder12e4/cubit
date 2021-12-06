@@ -16,7 +16,7 @@ class LoginRepo extends Repository {
     var webUrl = Uri.parse(
         "https://run.mocky.io/v3/3e5d9878-e6bf-4088-b219-4e4cf9ef7f9e");
     var res = await http.get(webUrl);
-    if (res.statusCode == 0) {
+    if (res.statusCode == 200) {
       var data = json.decode(res.body);
       obje_loginModel = ModelClass.fromJson(data);
     }

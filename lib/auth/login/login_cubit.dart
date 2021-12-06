@@ -11,7 +11,7 @@ class LoginCubit extends Cubit<LoginState> {
       //two parameters are needed here
       //1 state
       //2 repo
-      LoginState state,
+      // LoginState state,
       this.obj_repository)
       : super(LoginInitial());
 
@@ -30,8 +30,9 @@ class LoginCubit extends Cubit<LoginState> {
       name = logindata!.username!;
       image = logindata!.image!;
       phoneno = logindata!.phone!;
-      emit(LoginSuccess());
+      emit(LoginSuccess(name, image, phoneno));
     } catch (e) {
+      print(e);
       emit(LoginFail());
     }
   }
